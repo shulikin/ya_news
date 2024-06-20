@@ -1,9 +1,10 @@
-import pytest
 from datetime import datetime, timedelta
-from django.urls import reverse
-from django.test.client import Client
-from django.utils import timezone
+
+import pytest
 from django.conf import settings
+from django.test.client import Client
+from django.urls import reverse
+from django.utils import timezone
 
 from news.models import Comment, News
 
@@ -87,21 +88,6 @@ def comments(clause, author):
         )
         comment.created = now + timedelta(days=index)
         comment.save()
-
-
-@pytest.fixture
-def id_for_args(new):
-    return new.id,
-
-
-@pytest.fixture
-def id_comment_for_args(comment):
-    return comment.id,
-
-
-@pytest.fixture
-def form_data():
-    return {'text': 'Новый текст'}
 
 
 @pytest.fixture

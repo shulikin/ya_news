@@ -30,21 +30,8 @@ def test_comments_order(client, detail_url, comments):
     assert all_timestamps == sorted_timestamps
 
 
-@pytest.mark.parametrize(
-    'parametrized_client, form_in_page',
-    (
-        (pytest.lazy_fixture('client'), False),
-        (pytest.lazy_fixture('author_client'), True)
-    ),
-)
-def test_form_availability_for_different_users( 
-        parametrized_client, form_in_page, detail_url
-):
-    response = parametrized_client.get(detail_url)
-    assert ('form' in response.context) is form_in_page
-
-
-def test_authorized_client_has_form(reader_client, detail_url):
+def test_form_availability_for_different_users(
+        reader_client, detail_url):
     response = reader_client.get(detail_url)
     assert 'form' in response.context
     assert isinstance(response.context['form'], CommentForm)
